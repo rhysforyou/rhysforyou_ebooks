@@ -35,12 +35,12 @@ class CloneBot < Ebooks::Bot
     reload_model
 
     # Tweet unprompted a few times a day
-    scheduler.every '1h' do
+    scheduler.every '6h' do
       tweet model.make_statement(140)
     end
 
     # Periodically ingest new tweets
-    scheduler.every '24h' do
+    scheduler.every '12h' do
       reload_model
     end
   end
