@@ -130,8 +130,15 @@ class CloneBot < Ebooks::Bot
 
     @archive_path ||= "corpus/#{original}.json"
 
+    client = Twitter::REST::Client.new do |config|
+      config.access_token = ENV['TWITTER_ACCESS_TOKEN']
+      config.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
+      config.consumer_key = ENV['TWITTER_CONSUMER_KEY']
+      config.consumer_secret = ENV['TWITTER_CONSUMER_SECRET']
+    end
+
     log "Loading archive #{archive_path}"
-    @archive = Ebooks::Archive.new(original, @archive_path)
+    @archive = Ebooks::Archive.new(original, archive_path, client)
   end
 
   def load_model!
@@ -146,7 +153,7 @@ class CloneBot < Ebooks::Bot
 
   def reload_model
     log "Updating archive"
-    @archive.sync
+    archive.sync
     log "Consuming archive"
     @model.consume(@archive_path)
     log "Saving new model"
