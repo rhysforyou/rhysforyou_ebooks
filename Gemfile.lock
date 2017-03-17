@@ -79,7 +79,7 @@ DEPENDENCIES
   twitter_ebooks
 
 RUBY VERSION
-   ruby 2.2.3p173
+   ruby 2.2.6p396
 
 BUNDLED WITH
-   1.12.5
+   1.14.6
